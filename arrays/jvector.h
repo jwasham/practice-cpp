@@ -9,7 +9,7 @@ class JVector {
  public:
   JVector(int capacity);
   JVector(const JVector &other) = default;
-  JVector &operator=(const JVector &other) = default;
+  //JVector &operator=(const JVector &other) = default;
   ~JVector();
   int GetSize() const;
   bool IsEmpty() const;
@@ -20,7 +20,7 @@ class JVector {
  private:
   int capacity_{kMinCapacity};
   int size_{0};
-  int *data_;
+  std::unique_ptr<int[]> data_;
   int DetermineCapacity(int capacity) const;
   void ResizeForSize(int candidate_size);
   void IncreaseSize();

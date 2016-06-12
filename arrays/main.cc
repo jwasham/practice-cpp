@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 
   assert(test_v.IsEmpty());
 
-  for (int i = 0; i < 172; ++i) {
+  for (int i = 0; i < 77; ++i) {
     test_v.Push(i + 1);
   }
 

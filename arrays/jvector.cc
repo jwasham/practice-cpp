@@ -12,10 +12,10 @@ JVector::JVector(int capacity) : size_(0) {
   int true_capacity = DetermineCapacity(capacity);
 
   capacity_ = true_capacity;
-  data_ = new int[true_capacity];
+  data_ = std::unique_ptr<int[]>(new int[true_capacity]);
 }
 
-JVector::~JVector() { delete[] data_; }
+JVector::~JVector() {}
 
 int JVector::DetermineCapacity(int capacity) const {
   int true_capacity = kMinCapacity;
@@ -37,8 +37,8 @@ void JVector::DebugString() const {
             << "capacity: " << capacity_ << std::endl
             << "items: " << std::endl;
 
-  for (int i = 0; i < size_; ++i) {
-    printf("%d: %d", i, *(data_ + i));
+  for (int i = 0; i < size_ ; ++i) {
+    printf("%d: %d", i, data_[i]);
     std::cout << std::endl;
   }
 }
@@ -46,7 +46,7 @@ void JVector::DebugString() const {
 void JVector::Push(int value) {
   ResizeForSize(size_ + 1);
 
-  *(data_ + size_) = value;
+  data_[size_] = value;
   ++size_;
 }
 
@@ -66,17 +66,13 @@ void JVector::IncreaseSize() {
   int new_capacity = DetermineCapacity(old_capacity);
 
   if (old_capacity != new_capacity) {
-    //    std::cout << "reallocating for " << new_capacity << std::endl;
-
-    int *new_data = new int[new_capacity];
+    std::unique_ptr<int[]> new_data(new int[new_capacity]);
 
     for (int i = 0; i < size_; ++i) {
-      *(new_data + i) = *(data_ + i);
+      new_data[i] = data_[i];
     }
 
-    delete[] data_;
-
-    data_ = new_data;
+    data_ = std::move(new_data);
     capacity_ = new_capacity;
   }
 }
