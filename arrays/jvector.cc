@@ -20,8 +20,8 @@ JVector::~JVector() {}
 int JVector::DetermineCapacity(int capacity) const {
   int true_capacity = kMinCapacity;
 
-  while (capacity > true_capacity / 2) {
-    true_capacity *= 2;
+  while (capacity > true_capacity / kGrowthFactor) {
+    true_capacity *= kGrowthFactor;
   }
 
   return true_capacity;
@@ -53,11 +53,12 @@ void JVector::Push(int value) {
 void JVector::ResizeForSize(int candidate_size) {
   if (size_ < candidate_size) {  // grow
     if (size_ == capacity_) {
-      //      std::cout << "Increasing size..." << std::endl;
       IncreaseSize();
     }
   } else if (size_ > candidate_size) {  // shrink
-
+    if (size_ < capacity_ / kShrinkFactor) {
+      DecreaseSize();
+    }
   }  // nothing needs to happen otherwise
 }
 
@@ -75,6 +76,114 @@ void JVector::IncreaseSize() {
     data_ = std::move(new_data);
     capacity_ = new_capacity;
   }
+}
+
+void JVector::DecreaseSize() {
+  int old_capacity = capacity_;
+  int new_capacity = old_capacity / 2;
+
+  if (new_capacity < kMinCapacity) {
+    new_capacity = kMinCapacity;
+  }
+
+  if (new_capacity != old_capacity) {
+    std::unique_ptr<int[]> new_data(new int[new_capacity]);
+
+    for (int i = 0; i < size_ ; ++i) {
+      new_data[i] = data_[i];
+    }
+
+    data_ = std::move(new_data);
+    capacity_ = new_capacity;
+  }
+}
+
+int JVector::GetValueAt(int index) const {
+
+  if (index < 0 or index >= size_) {
+    std::cout << "Index out of bounds." << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  return data_[index];
+}
+
+int JVector::Pop() {
+
+  if (size_ == 0) {
+    std::cout << "Nothing to pop." << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  ResizeForSize(size_ - 1);
+
+  int value = data_[size_ - 1];
+
+  --size_;
+
+  return value;
+}
+
+void JVector::Insert(int index, int value) {
+
+  if (index < 0 or index >= size_) {
+    std::cout << "Index out of bounds." << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  ResizeForSize(size_ + 1);
+
+  // shift items to the right
+  for (int i = size_; i > index ; --i) {
+    data_[i] = data_[i - 1];
+  }
+
+  // insert item
+  data_[index] = value;
+
+  ++size_;
+}
+
+void JVector::Prepend(int value) {
+  Insert(0, 42);
+}
+
+void JVector::Delete(int index) {
+  if (index < 0 or index >= size_) {
+    std::cout << "Index out of bounds." << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  ResizeForSize(size_ - 1);
+
+  for (int i = index; i < size_ - 1; i++) {
+    data_[i] = data_[i + 1];
+  }
+
+  --size_;
+}
+
+void JVector::Remove(int value) {
+  for (int i = 0; i < size_; ++i) {
+    if (data_[i] == value) {
+      Delete(i);
+      --i; // since items will shift, recheck this index
+    }
+  }
+}
+
+int JVector::Find(int value) const {
+
+  int found_index = -1;
+
+  for (int i = 0; i < size_; ++i) {
+    if (data_[i] == value) {
+      found_index = i;
+      break;
+    }
+  }
+
+  return found_index;
 }
 
 }  // namespace jw
