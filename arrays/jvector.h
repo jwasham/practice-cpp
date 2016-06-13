@@ -11,7 +11,7 @@ class JVector {
  public:
   JVector(int capacity);
   JVector(const JVector &other) = default;
-  //JVector &operator=(const JVector &other) = default;
+  // JVector &operator=(const JVector &other) = default;
   ~JVector();
   // Returns the number of items stored in the vector.
   int GetSize() const;

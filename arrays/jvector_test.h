@@ -4,7 +4,7 @@
 namespace jw {
 
 class JVectorTest {
-public:
+ public:
   void RunTests() const;
   void TestSize() const;
   // Tests increases and decreases in capacity based on number of items stored.
@@ -19,6 +19,6 @@ public:
   void TestFind() const;
 };
 
-} // namespace jw
+}  // namespace jw
 
-#endif //PROJECT_JVECTOR_TEST_H
+#endif  // PROJECT_JVECTOR_TEST_H

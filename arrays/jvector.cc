@@ -37,7 +37,7 @@ void JVector::DebugString() const {
             << "capacity: " << capacity_ << std::endl
             << "items: " << std::endl;
 
-  for (int i = 0; i < size_ ; ++i) {
+  for (int i = 0; i < size_; ++i) {
     printf("%d: %d", i, data_[i]);
     std::cout << std::endl;
   }
@@ -89,7 +89,7 @@ void JVector::DecreaseSize() {
   if (new_capacity != old_capacity) {
     std::unique_ptr<int[]> new_data(new int[new_capacity]);
 
-    for (int i = 0; i < size_ ; ++i) {
+    for (int i = 0; i < size_; ++i) {
       new_data[i] = data_[i];
     }
 
@@ -99,7 +99,6 @@ void JVector::DecreaseSize() {
 }
 
 int JVector::GetValueAt(int index) const {
-
   if (index < 0 or index >= size_) {
     std::cout << "Index out of bounds." << std::endl;
     exit(EXIT_FAILURE);
@@ -109,7 +108,6 @@ int JVector::GetValueAt(int index) const {
 }
 
 int JVector::Pop() {
-
   if (size_ == 0) {
     std::cout << "Nothing to pop." << std::endl;
     exit(EXIT_FAILURE);
@@ -125,7 +123,6 @@ int JVector::Pop() {
 }
 
 void JVector::Insert(int index, int value) {
-
   if (index < 0 or index >= size_) {
     std::cout << "Index out of bounds." << std::endl;
     exit(EXIT_FAILURE);
@@ -134,7 +131,7 @@ void JVector::Insert(int index, int value) {
   ResizeForSize(size_ + 1);
 
   // shift items to the right
-  for (int i = size_; i > index ; --i) {
+  for (int i = size_; i > index; --i) {
     data_[i] = data_[i - 1];
   }
 
@@ -144,9 +141,7 @@ void JVector::Insert(int index, int value) {
   ++size_;
 }
 
-void JVector::Prepend(int value) {
-  Insert(0, 42);
-}
+void JVector::Prepend(int value) { Insert(0, 42); }
 
 void JVector::Delete(int index) {
   if (index < 0 or index >= size_) {
@@ -167,13 +162,12 @@ void JVector::Remove(int value) {
   for (int i = 0; i < size_; ++i) {
     if (data_[i] == value) {
       Delete(i);
-      --i; // since items will shift, recheck this index
+      --i;  // since items will shift, recheck this index
     }
   }
 }
 
 int JVector::Find(int value) const {
-
   int found_index = -1;
 
   for (int i = 0; i < size_; ++i) {
