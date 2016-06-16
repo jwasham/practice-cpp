@@ -191,7 +191,7 @@ void LinkedList<T>::Insert(int index, T value) {
 template <class T>
 void LinkedList<T>::Erase(int index) {
   if (head_ == nullptr) {
-    std::cerr << "Index out of bounds." << std::endl;
+    std::cerr << "List is empty." << std::endl;
     exit(EXIT_FAILURE);
   }
 
@@ -216,6 +216,71 @@ void LinkedList<T>::Erase(int index) {
   }
 
   delete current;
+}
+
+template <class T>
+const T LinkedList<T>::ValueNFromEnd(int n) {
+  if (n < 1 || head_ == nullptr) {
+    std::cerr << "List is empty." << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  auto * current = head_;
+  auto * match = head_;
+
+  int i;
+  for (i = 0; i < n && current; ++i) {
+    current = current->GetNext();
+  }
+
+  if (i != n) {
+    std::cerr << "Index out of bounds." << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  while (current) {
+    match = match->GetNext();
+    current = current->GetNext();
+  }
+
+  return match->GetData();
+}
+
+template <class T>
+void LinkedList<T>::Reverse() {
+  ListElement<T> *prev = nullptr;
+  ListElement<T> *current = head_;
+  ListElement<T> *next;
+
+  while (current != nullptr) {
+    next = current->GetNext();
+    current->SetNext(prev);
+    prev = current;
+    current = next;
+  }
+
+  head_ = prev;
+}
+
+template <class T>
+void LinkedList<T>::RemoveValue(T value) {
+  ListElement<T> *prev = nullptr;
+  ListElement<T> *current = head_;
+
+  while (current) {
+    if (current->GetData() == value) {
+      if (prev == nullptr) {
+        head_ = current->GetNext();
+      } else {
+        prev->SetNext(current->GetNext());
+      }
+      delete current;
+      break;
+    }
+
+    prev = current;
+    current = current->GetNext();
+  }
 }
 
 }  // namespace jw

@@ -39,6 +39,13 @@ class LinkedList {
   void Insert(int index, T value);
   // Erase node at the given index. Indexes start at 0.
   void Erase(int index);
+  // Returns the value of the node at nth position from the end of the list.
+  // Last position would be 1, second to last is 2, etc.
+  const T ValueNFromEnd(int n);
+  // Reverses the items stored in the list
+  void Reverse();
+  // removes the first item in the list with the given value
+  void RemoveValue(T value);
 
  private:
   ListElement<T> *head_;

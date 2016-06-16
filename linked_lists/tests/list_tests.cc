@@ -244,5 +244,119 @@ TEST_F(EraseTest, EraseMid) {
   EXPECT_EQ(list.Back(), 66);
 }
 
+class ValueNFromEndTest : public ::testing::Test {};
+
+TEST_F(ValueNFromEndTest, Only) {
+  jw::LinkedList<int> list{};
+
+  list.PushBack(33);
+
+  EXPECT_EQ(list.ValueNFromEnd(1), 33);
+}
+
+TEST_F(ValueNFromEndTest, Last) {
+  jw::LinkedList<int> list{};
+
+  list.PushBack(44);
+  list.PushBack(55);
+  list.PushBack(66);
+
+  EXPECT_EQ(list.ValueNFromEnd(1), 66);
+  EXPECT_EQ(list.ValueNFromEnd(2), 55);
+  EXPECT_EQ(list.ValueNFromEnd(3), 44);
+}
+
+class ReverseTest : public ::testing::Test {};
+
+TEST_F(ReverseTest, ReverseOne) {
+  jw::LinkedList<int> list{};
+
+  list.PushBack(44);
+
+  list.Reverse();
+
+  EXPECT_EQ(list.Front(), 44);
+}
+
+TEST_F(ReverseTest, ReverseTwo) {
+  jw::LinkedList<int> list{};
+
+  list.PushBack(44);
+  list.PushBack(55);
+
+  list.Reverse();
+
+  EXPECT_EQ(list.Front(), 55);
+  EXPECT_EQ(list.Back(), 44);
+}
+
+TEST_F(ReverseTest, ReverseThree) {
+  jw::LinkedList<int> list{};
+
+  list.PushBack(44);
+  list.PushBack(55);
+  list.PushBack(66);
+
+  list.Reverse();
+
+  EXPECT_EQ(list.ValueAt(0), 66);
+  EXPECT_EQ(list.ValueAt(1), 55);
+  EXPECT_EQ(list.ValueAt(2), 44);
+}
+
+class RemoveValueTest : public ::testing::Test {};
+
+TEST_F(RemoveValueTest, RemoveNone) {
+  jw::LinkedList<int> list{};
+
+  list.RemoveValue(5);
+
+  EXPECT_EQ(list.Size(), 0);
+}
+
+TEST_F(RemoveValueTest, RemoveOnly) {
+  jw::LinkedList<int> list{};
+
+  list.PushBack(5);
+  list.RemoveValue(5);
+
+  EXPECT_EQ(list.Size(), 0);
+}
+
+TEST_F(RemoveValueTest, RemoveFirst) {
+  jw::LinkedList<int> list{};
+
+  list.PushBack(5);
+  list.PushBack(22);
+  list.RemoveValue(5);
+
+  EXPECT_EQ(list.Size(), 1);
+  EXPECT_EQ(list.Front(), 22);
+}
+
+TEST_F(RemoveValueTest, RemoveLast) {
+  jw::LinkedList<int> list{};
+
+  list.PushBack(10);
+  list.PushBack(20);
+  list.RemoveValue(20);
+
+  EXPECT_EQ(list.Size(), 1);
+  EXPECT_EQ(list.Back(), 10);
+}
+
+TEST_F(RemoveValueTest, RemoveMid) {
+  jw::LinkedList<int> list{};
+
+  list.PushBack(10);
+  list.PushBack(25);
+  list.PushBack(45);
+
+  list.RemoveValue(25);
+
+  EXPECT_EQ(list.Size(), 2);
+  EXPECT_EQ(list.Front(), 10);
+  EXPECT_EQ(list.Back(), 45);
+}
 
 } // namespace [anonymous]
