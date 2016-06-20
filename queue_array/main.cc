@@ -4,16 +4,9 @@
 #include "src/queue_array.h"
 #include "src/queue_array.cc"
 
-// for stdlib experiments:
-#include <queue>
-#include <stack>
-
-//void stdlib_forward_list_experiment();
-//void stdlib_doubly_linked_list_experiment();
-
 int main(int argc, char *argv[]) {
 
-  std::cout << "Here we go." << std::endl;
+  std::cout << "Nothing to see here. Look in tests directory." << std::endl;
 
   return EXIT_SUCCESS;
 }
