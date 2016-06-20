@@ -1,5 +1,5 @@
-project(queue_array_tests)
+project(queue_llist_tests)
 
-add_executable(queue_array_tests queue_array_tests.cc)
+add_executable(queue_llist_tests queue_llist_tests.cc)
 
-target_link_libraries(queue_array_tests queue_array_lib)
+target_link_libraries(queue_llist_tests queue_llist_lib)

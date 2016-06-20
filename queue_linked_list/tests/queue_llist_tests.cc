@@ -1,12 +1,12 @@
 #include <assert.h>
 #include <iostream>
 #include <string>
-#include "queue_array.cc"
-#include "queue_array.h"
+#include "queue_linked_list.cc"
+#include "queue_linked_list.h"
 
 void run_all_tests();
 void test_empty();
-void test_full();
+void test_enqueue();
 void test_dequeue();
 
 int main(int argc, char *argv[]) {
@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
 void run_all_tests() {
   test_empty();
-  test_full();
+  test_enqueue();
   test_dequeue();
 }
 
@@ -31,7 +31,7 @@ void test_empty() {
   assert(!q.Empty());
 }
 
-void test_full() {
+void test_enqueue() {
   jw::Queue<double> q;
 
   q.Enqueue(12.3);
@@ -40,7 +40,7 @@ void test_full() {
   q.Enqueue(7.0);
   q.Enqueue(885314.32214);
 
-  assert(q.Full());
+  assert(!q.Empty());
 }
 
 void test_dequeue() {

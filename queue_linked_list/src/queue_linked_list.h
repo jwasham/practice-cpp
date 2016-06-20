@@ -1,18 +1,16 @@
 #include <iostream>
+#include "list_element.h"
 
-#ifndef PROJECT_QUEUE_ARRAY_H
-#define PROJECT_QUEUE_ARRAY_H
+#ifndef PROJECT_QUEUE_LLIST_H
+#define PROJECT_QUEUE_LLIST_H
 
 namespace jw {
 
 template <class T>
 class Queue {
-  static const int kQueueCapacity = 5;
-  static const int kQueuePositions = kQueueCapacity + 1;
-
  public:
-  explicit Queue() : insert_(0), pop_(0) {}
-  ~Queue() = default;
+  explicit Queue() : head_(nullptr), tail_(nullptr) {}
+  ~Queue();
   Queue(const Queue &) = delete;
   Queue &operator=(const Queue &) = delete;
   // Adds value to queue.
@@ -21,15 +19,14 @@ class Queue {
   const T Dequeue();
   // Returns true if queue is empty.
   bool Empty() const;
-  // Returns true if queue cannot accept another enqueue.
-  bool Full() const;
+  // Outputs the items in the queue, least recently added first.
+  void PrintDebug() const;
 
  private:
-  int insert_;
-  int pop_;
-  T data_[kQueuePositions];
+  ListElement<T> *head_;
+  ListElement<T> *tail_;
 };
 
 }  // namespace jw
 
-#endif  // PROJECT_QUEUE_ARRAY_H
+#endif  // PROJECT_QUEUE_LLIST_H

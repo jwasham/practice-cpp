@@ -3,14 +3,29 @@
 namespace jw {
 
 template <class T>
-void Queue<T>::Enqueue(T value) {
-  if (Full()) {
-    std::cerr << "Queue is full. Unable to enqueue." << std::endl;
-    exit(EXIT_FAILURE);
-  }
+Queue<T>::~Queue() {
+  ListElement<T> *current = head_;
+  ListElement<T> *temp = head_;
 
-  data_[insert_] = value;
-  insert_++;
+  while (current) {
+    temp = current;
+    current = current->GetNext();
+    delete temp;
+  }
+}
+
+template <class T>
+void Queue<T>::Enqueue(T value) {
+  auto p = new ListElement<T>(value);
+  p->SetData(value);
+  p->SetNext(nullptr);
+
+  if (Empty()) {
+    head_ = tail_ = p;
+  } else {
+    tail_->SetNext(p);
+    tail_ = p;
+  }
 }
 
 template <class T>
@@ -20,21 +35,37 @@ const T Queue<T>::Dequeue() {
     exit(EXIT_FAILURE);
   }
 
-  T value = data_[pop_];
-  data_[pop_] = 0;
-  pop_++;
+  T value = head_->GetData();
+
+  ListElement<T> *temp = head_;
+
+  if (head_ == tail_) {
+    tail_ = head_->GetNext();
+  }
+
+  head_ = head_->GetNext();
+  delete temp;
 
   return value;
 }
 
 template <class T>
 bool Queue<T>::Empty() const {
-  return insert_ == pop_;
+  return head_ == nullptr;
 }
 
 template <class T>
-bool Queue<T>::Full() const {
-  return pop_ == (insert_ + 1) % kQueuePositions;
+void Queue<T>::PrintDebug() const {
+  ListElement<T> *current = head_;
+
+  std::cout << "Queue elements: ";
+
+  while (current) {
+    std::cout << current->GetData() << " < ";
+    current = current->GetNext();
+  }
+
+  std::cout << std::endl;
 }
 
 }  // namespace jw
