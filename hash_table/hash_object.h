@@ -19,6 +19,7 @@ class HashObject {
   void SetKey(const std::string key) { key_ = key; }
   void SetValue(const std::string value) { value_ = value; }
   static const std::string GetDummyKey() { return "<Dummy>"; }
+  static const std::string GetNullKey() { return "<Null>"; }
 
  private:
   std::string key_;
