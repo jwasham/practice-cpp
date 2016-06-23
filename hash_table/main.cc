@@ -8,7 +8,7 @@ void stdlib_experiments();
 
 int main(int argc, char *argv[]) {
   run_all_tests();
-  stdlib_experiments();
+  //stdlib_experiments();
 
   return EXIT_SUCCESS;
 }
