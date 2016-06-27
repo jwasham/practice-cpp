@@ -9,8 +9,18 @@ struct BSTNode {
   BSTNode* right;
 };
 
+// Returns a new node for our BST
 BSTNode* GetNewNode(int value);
+// Returns true if given value is in our tree
 bool Search(BSTNode* node, int value);
+// Frees memory allocated for the tree.
+void DeleteTree(BSTNode* node);
+// Returns the minimum value stored in the tree,
+// or -1 if tree is empty
+int GetMin(BSTNode* node);
+// Returns the maximum value stored in the tree,
+// or -1 if tree is empty
+int GetMax(BSTNode* node);
 
 }  // namespace jw
 

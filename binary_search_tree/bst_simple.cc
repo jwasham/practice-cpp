@@ -40,4 +40,40 @@ bool Search(BSTNode* node, int value) {
   }
 }
 
+int GetMin(BSTNode* node) {
+  if (node == nullptr) {
+    return -1;
+  }
+
+  if (node->left == nullptr) {
+    return node->data;
+  }
+
+  return GetMin(node->left);
+}
+
+int GetMax(BSTNode* node) {
+  if (node == nullptr) {
+    return -1;
+  }
+
+  if (node->right == nullptr) {
+    return node->data;
+  }
+
+  return GetMax(node->right);
+}
+
+void DeleteTree(BSTNode* node) {
+
+  if (node == nullptr) {
+    return;
+  }
+
+  DeleteTree(node->left);
+  DeleteTree(node->right);
+
+  delete node;
+}
+
 }  // namespace jw

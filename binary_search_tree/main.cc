@@ -12,24 +12,38 @@ int main(int argc, char *argv[]) {
   root = Insert(root, 10);
   root = Insert(root, 12);
   root = Insert(root, 8);
+  root = Insert(root, 9);
   root = Insert(root, 5);
+  root = Insert(root, 7);
+  root = Insert(root, 23);
+  root = Insert(root, 16);
+  root = Insert(root, 44);
+  root = Insert(root, 2);
   root = Insert(root, 32);
 
-  std::string searchRaw;
-  int search = 0;
+  int min = GetMin(root);
+  int max = GetMax(root);
 
-  while (true) {
-    std::cout << "What number are you looking for? (q to quit) ";
-    std::getline(std::cin, searchRaw);
+  std::cout << "Min: " << min << std::endl;
+  std::cout << "Max: " << max << std::endl;
 
-    if (searchRaw == "q") {
-      break;
-    }
+//  std::string searchRaw;
+//  int search = 0;
 
-    search = std::stoi(searchRaw);
+//  while (true) {
+//    std::cout << "What number are you looking for? (q to quit) ";
+//    std::getline(std::cin, searchRaw);
+//
+//    if (searchRaw == "q") {
+//      break;
+//    }
+//
+//    search = std::stoi(searchRaw);
+//
+//    std::cout << "Found " << search << ": " << Search(root, search) << std::endl;
+//  }
 
-    std::cout << "Found " << search << ": " << Search(root, search) << std::endl;
-  }
+  DeleteTree(root);
 
   return EXIT_SUCCESS;
 }
