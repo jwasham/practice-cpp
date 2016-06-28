@@ -39,6 +39,18 @@ int main(int argc, char *argv[]) {
 
   std::cout << "Is a binary search tree: " << IsBinarySearchTree(root) << std::endl;
 
+  BSTNode* suc1 = GetSuccessor(root, 5);
+  std::cout << "Successor to 5 (2 children), should be 7: " << suc1->data << std::endl;
+
+  BSTNode* suc1a = GetSuccessor(root, 7);
+  std::cout << "Successor to 7 (0 children), should be 8: " << suc1a->data << std::endl;
+
+  BSTNode* suc2 = GetSuccessor(root, 12);
+  std::cout << "Successor to 12 (0 children), should be 15: " << suc2->data << std::endl;
+
+  BSTNode* suc3 = GetSuccessor(root, 15);
+  std::cout << "Successor to 15 (2 children), should be 16: " << suc3->data << std::endl;
+
   // bad tree
   BSTNode * otherroot = GetNewNode(25);
   BSTNode * node1 = GetNewNode(12);
@@ -50,24 +62,26 @@ int main(int argc, char *argv[]) {
 
   std::cout << "Is a binary search tree: " << IsBinarySearchTree(otherroot) << std::endl;
 
+  std::cout << "Removing 2 (no children)" << std::endl;
+  root = DeleteValue(root, 2);
+  std::cout << "Tree items (in order): ";
+  PrintInOrder(root);
+  std::cout << std::endl;
 
-//  std::string searchRaw;
-//  int search = 0;
+  std::cout << "Removing 5 (one child)" << std::endl;
+  root = DeleteValue(root, 5);
+  std::cout << "Tree items (in order): ";
+  PrintInOrder(root);
+  std::cout << std::endl;
 
-//  while (true) {
-//    std::cout << "What number are you looking for? (q to quit) ";
-//    std::getline(std::cin, searchRaw);
-//
-//    if (searchRaw == "q") {
-//      break;
-//    }
-//
-//    search = std::stoi(searchRaw);
-//
-//    std::cout << "Found " << search << ": " << Search(root, search) << std::endl;
-//  }
+  std::cout << "Removing 10 (2 children)" << std::endl;
+  root = DeleteValue(root, 10);
+  std::cout << "Tree items (in order): ";
+  PrintInOrder(root);
+  std::cout << std::endl;
 
   DeleteTree(root);
+  DeleteTree(otherroot);
 
   return EXIT_SUCCESS;
 }

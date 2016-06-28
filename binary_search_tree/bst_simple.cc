@@ -40,6 +40,18 @@ bool Search(BSTNode* node, int value) {
   }
 }
 
+BSTNode* GetMinNode(BSTNode* node) {
+  if (node == nullptr) {
+    return nullptr;
+  }
+
+  if (node->left == nullptr) {
+    return node;
+  }
+
+  return GetMinNode(node);
+}
+
 int GetMin(BSTNode* node) {
   if (node == nullptr) {
     return -1;
@@ -120,12 +132,69 @@ bool IsBinarySearchTree(BSTNode* node) {
 bool IsBetween(BSTNode* node, int min, int max) {
   if (node == nullptr) return true;
 
-  if (node->data > min && node->data < max
-      && IsBetween(node->left, min, node->data)
-      && IsBetween(node->right, node->data, max))
+  if (node->data > min && node->data < max &&
+      IsBetween(node->left, min, node->data) &&
+      IsBetween(node->right, node->data, max))
     return true;
   else
     return false;
+}
+
+BSTNode* DeleteValue(BSTNode* node, int value) {
+  if (node == nullptr) return nullptr;
+
+  if (value < node->data)
+    node->left = DeleteValue(node->left, value);
+  else if (value > node->data)
+    node->right = DeleteValue(node->right, value);
+  else {  // found node to delete
+    if (node->left == nullptr && node->right == nullptr) {
+      delete node;
+      node = nullptr;
+    } else if (node->left == nullptr) {
+      BSTNode* temp = node;
+      node = node->right;
+      delete temp;
+    } else if (node->right == nullptr) {
+      BSTNode* temp = node;
+      node = node->left;
+      delete temp;
+    } else {  // 2 children
+      BSTNode* temp = GetMinNode(node->right);
+      node->data = temp->data;
+      node->right = DeleteValue(node->right, temp->data);
+    }
+  }
+
+  return node;
+}
+
+BSTNode* GetSuccessor(BSTNode* node, int value) {
+  if (node == nullptr) return node;
+
+  // find value
+  BSTNode* target_node = node;
+  while (target_node->left != nullptr) {
+    target_node = target_node->left;
+  }
+
+  if (target_node->right != nullptr) {
+    return GetMinNode(target_node->right);
+  } else {
+    // find deepest ancestor where value is in left subtree
+    BSTNode* successor = nullptr;
+    BSTNode* ancestor = node;
+    while (ancestor != nullptr) {
+      if (value < ancestor->data) {
+        successor = ancestor;
+        ancestor = ancestor->left;
+      } else {
+        ancestor = ancestor->right;
+      }
+    }
+
+    return successor;
+  }
 }
 
 }  // namespace jw
