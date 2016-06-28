@@ -73,7 +73,6 @@ int GetHeight(BSTNode* node) {
 }
 
 void DeleteTree(BSTNode* node) {
-
   if (node == nullptr) {
     return;
   }
@@ -82,6 +81,36 @@ void DeleteTree(BSTNode* node) {
   DeleteTree(node->right);
 
   delete node;
+}
+
+void PrintBFS(BSTNode* node) {
+  std::queue<BSTNode*> node_queue;
+
+  BSTNode* current;
+
+  node_queue.push(node);
+
+  while (!node_queue.empty()) {
+    current = node_queue.front();
+    node_queue.pop();
+
+    if (current != nullptr) {
+      std::cout << current->data << " ";
+
+      if (current->left) node_queue.push(current->left);
+      if (current->right) node_queue.push(current->right);
+    }
+  }
+}
+
+void PrintInOrder(BSTNode* node) {
+  if (node == nullptr) {
+    return;
+  }
+
+  PrintInOrder(node->left);
+  std::cout << node->data << " ";
+  PrintInOrder(node->right);
 }
 
 }  // namespace jw

@@ -29,6 +29,14 @@ int main(int argc, char *argv[]) {
   std::cout << "Max: " << max << std::endl;
   std::cout << "Height: " << height << std::endl;
 
+  std::cout << "Tree items (breadth-first): ";
+  PrintBFS(root);
+  std::cout << std::endl;
+
+  std::cout << "Tree items (in order): ";
+  PrintInOrder(root);
+  std::cout << std::endl;
+
 //  std::string searchRaw;
 //  int search = 0;
 

@@ -1,3 +1,5 @@
+#include <queue>
+
 #ifndef PROJECT_BINARY_SEARCH_TREE_H
 #define PROJECT_BINARY_SEARCH_TREE_H
 
@@ -23,6 +25,10 @@ int GetMin(BSTNode* node);
 int GetMax(BSTNode* node);
 // Returns height of the tree, 0 if empty
 int GetHeight(BSTNode* node);
+// Print out the items in the tree in level order
+void PrintBFS(BSTNode* node);
+// Print out the items in the tree in order (inorder)
+void PrintInOrder(BSTNode* node);
 
 }  // namespace jw
 
