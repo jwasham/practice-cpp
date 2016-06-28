@@ -77,8 +77,8 @@ void DeleteTree(BSTNode* node) {
     return;
   }
 
-  DeleteTree(node->left);
-  DeleteTree(node->right);
+  if (node->left != nullptr) DeleteTree(node->left);
+  if (node->right != nullptr) DeleteTree(node->right);
 
   delete node;
 }
@@ -97,8 +97,8 @@ void PrintBFS(BSTNode* node) {
     if (current != nullptr) {
       std::cout << current->data << " ";
 
-      if (current->left) node_queue.push(current->left);
-      if (current->right) node_queue.push(current->right);
+      if (current->left != nullptr) node_queue.push(current->left);
+      if (current->right != nullptr) node_queue.push(current->right);
     }
   }
 }
@@ -108,9 +108,24 @@ void PrintInOrder(BSTNode* node) {
     return;
   }
 
-  PrintInOrder(node->left);
+  if (node->left != nullptr) PrintInOrder(node->left);
   std::cout << node->data << " ";
-  PrintInOrder(node->right);
+  if (node->right != nullptr) PrintInOrder(node->right);
+}
+
+bool IsBinarySearchTree(BSTNode* node) {
+  return IsBetween(node, INT_MIN, INT_MAX);
+}
+
+bool IsBetween(BSTNode* node, int min, int max) {
+  if (node == nullptr) return true;
+
+  if (node->data > min && node->data < max
+      && IsBetween(node->left, min, node->data)
+      && IsBetween(node->right, node->data, max))
+    return true;
+  else
+    return false;
 }
 
 }  // namespace jw

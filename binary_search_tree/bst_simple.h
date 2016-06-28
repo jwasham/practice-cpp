@@ -29,6 +29,10 @@ int GetHeight(BSTNode* node);
 void PrintBFS(BSTNode* node);
 // Print out the items in the tree in order (inorder)
 void PrintInOrder(BSTNode* node);
+// Returns true if tree is a binary search tree
+bool IsBinarySearchTree(BSTNode* node);
+// Returns true if all items in the given tree are between the given values
+bool IsBetween(BSTNode* node, int min, int max);
 
 }  // namespace jw
 

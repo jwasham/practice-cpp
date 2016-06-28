@@ -37,6 +37,20 @@ int main(int argc, char *argv[]) {
   PrintInOrder(root);
   std::cout << std::endl;
 
+  std::cout << "Is a binary search tree: " << IsBinarySearchTree(root) << std::endl;
+
+  // bad tree
+  BSTNode * otherroot = GetNewNode(25);
+  BSTNode * node1 = GetNewNode(12);
+  BSTNode * node2 = GetNewNode(15);
+  BSTNode * node3 = GetNewNode(85);
+  otherroot->left = node1;
+  otherroot->right = node2;
+  otherroot->left->right = node3;
+
+  std::cout << "Is a binary search tree: " << IsBinarySearchTree(otherroot) << std::endl;
+
+
 //  std::string searchRaw;
 //  int search = 0;
 
