@@ -23,9 +23,11 @@ int main(int argc, char *argv[]) {
 
   int min = GetMin(root);
   int max = GetMax(root);
+  int height = GetHeight(root);
 
   std::cout << "Min: " << min << std::endl;
   std::cout << "Max: " << max << std::endl;
+  std::cout << "Height: " << height << std::endl;
 
 //  std::string searchRaw;
 //  int search = 0;

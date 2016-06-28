@@ -64,6 +64,14 @@ int GetMax(BSTNode* node) {
   return GetMax(node->right);
 }
 
+int GetHeight(BSTNode* node) {
+  if (node == nullptr) {
+    return 0;
+  }
+
+  return 1 + std::max(GetHeight(node->left), GetHeight(node->right));
+}
+
 void DeleteTree(BSTNode* node) {
 
   if (node == nullptr) {

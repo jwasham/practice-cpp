@@ -21,6 +21,8 @@ int GetMin(BSTNode* node);
 // Returns the maximum value stored in the tree,
 // or -1 if tree is empty
 int GetMax(BSTNode* node);
+// Returns height of the tree, 0 if empty
+int GetHeight(BSTNode* node);
 
 }  // namespace jw
 
