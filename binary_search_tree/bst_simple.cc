@@ -174,8 +174,12 @@ BSTNode* GetSuccessor(BSTNode* node, int value) {
 
   // find value
   BSTNode* target_node = node;
-  while (target_node->left != nullptr) {
-    target_node = target_node->left;
+  while (target_node->data != value) {
+    if (value < target_node->data) {
+      target_node = target_node->left;
+    } else if (value > target_node->data) {
+      target_node = target_node->right;
+    }
   }
 
   if (target_node->right != nullptr) {
