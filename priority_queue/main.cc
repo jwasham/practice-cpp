@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
   assert(max->key_ == 9827);
   assert(max->value_ == "world");
 
-  //queue.PrintDebug();
+  // queue.PrintDebug();
 
   jw::PQElement* max_element = queue.ExtractMax();
   assert(max_element->key_ == 9827);
@@ -42,6 +42,17 @@ int main(int argc, char* argv[]) {
   assert(queue.GetSize() == 0);
 
   delete max_element;
+
+  // now we'll sort an array in-place
+
+  int to_sort[10] = {613, 55, 8721, 472, 94, 72, 74, 8, 61, 356};
+  int sorted[10] = {8, 55, 61, 72, 74, 94, 356, 472, 613, 8721};
+
+  jw::heapify(to_sort, 10);
+  jw::heap_sort(to_sort, 10);
+
+  assert(
+      std::equal(std::begin(to_sort), std::end(to_sort), std::begin(sorted)));
 
   exit(EXIT_SUCCESS);
 }

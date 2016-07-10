@@ -63,7 +63,7 @@ int PriorityQueue::GetSize() { return size_; }
 
 bool PriorityQueue::IsEmpty() { return size_ == 0; }
 
-PQElement *PriorityQueue::ExtractMax() {
+PQElement* PriorityQueue::ExtractMax() {
   assert(size_ > 0);
 
   PQElement* max = new PQElement;
@@ -80,7 +80,6 @@ PQElement *PriorityQueue::ExtractMax() {
 
 void PriorityQueue::SiftDown(int index) {
   while (index * 2 + 1 < size_) {
-
     int left_child_index = index * 2 + 1;
     int right_child_index = index * 2 + 2;
     bool has_left_child = left_child_index < size_;
@@ -88,9 +87,10 @@ void PriorityQueue::SiftDown(int index) {
     int swap_index = index;
 
     if (has_left_child && has_right_child) {
-      if (elements_[left_child_index].key_ > elements_[right_child_index].key_) {
+      if (elements_[left_child_index].key_ >
+          elements_[right_child_index].key_) {
         swap_index = left_child_index;
-      } else { // greater or equal to right child
+      } else {  // greater or equal to right child
         swap_index = right_child_index;
       }
     } else if (has_left_child) {
@@ -112,12 +112,63 @@ void PriorityQueue::SiftDown(int index) {
 }
 
 void PriorityQueue::Remove(int index) {
-  assert(index >=0 && index < size_);
+  assert(index >= 0 && index < size_);
 
   Swap(index, size_ - 1);
   --size_;
 
   SiftDown(index);
+}
+
+void heapify(int* numbers, int count) {
+  for (int i = count / 2 - 1; i >= 0; --i) {
+    percolate_down(numbers, count, i);
+  }
+}
+
+void heap_sort(int* numbers, int count) {
+  int temp;
+  for (int i = count - 1; i > 0; --i) {
+    temp = numbers[i];
+    numbers[i] = numbers[0];
+    numbers[0] = temp;
+
+    percolate_down(numbers, i, 0);
+  }
+}
+
+void percolate_down(int* numbers, int count, int index) {
+  while (index * 2 + 1 < count) {
+    int swap_index = index;
+    int left_child_index = index * 2 + 1;
+    int right_child_index = index * 2 + 2;
+    bool has_left_child = left_child_index < count;
+    bool has_right_child = right_child_index < count;
+
+    if (has_left_child && has_right_child) {
+      if (numbers[left_child_index] > numbers[right_child_index]) {
+        swap_index = left_child_index;
+      } else {
+        swap_index = right_child_index;
+      }
+    } else if (has_left_child) {
+      swap_index = left_child_index;
+    } else if (has_right_child) {
+      swap_index = right_child_index;
+    } else {
+      break;
+    }
+
+    if (numbers[swap_index] > numbers[index]) {
+      int temp = numbers[index];
+      numbers[index] = numbers[swap_index];
+      numbers[swap_index] = temp;
+
+      index = swap_index;
+    } else {
+      break;
+    }
+  }
 }
 
 }  // namespace jw
