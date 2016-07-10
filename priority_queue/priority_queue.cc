@@ -50,6 +50,7 @@ void PriorityQueue::PrintDebug() {
     std::cout << i << ":" << elements_[i].key_ << ":" << elements_[i].value_
               << std::endl;
   }
+  std::cout << "--------" << std::endl;
 }
 
 PQElement* PriorityQueue::GetMax() {
@@ -61,5 +62,62 @@ PQElement* PriorityQueue::GetMax() {
 int PriorityQueue::GetSize() { return size_; }
 
 bool PriorityQueue::IsEmpty() { return size_ == 0; }
+
+PQElement *PriorityQueue::ExtractMax() {
+  assert(size_ > 0);
+
+  PQElement* max = new PQElement;
+  max->key_ = elements_[0].key_;
+  max->value_ = elements_[0].value_;
+
+  Swap(0, size_ - 1);
+  --size_;
+
+  SiftDown(0);
+
+  return max;
+}
+
+void PriorityQueue::SiftDown(int index) {
+  while (index * 2 + 1 < size_) {
+
+    int left_child_index = index * 2 + 1;
+    int right_child_index = index * 2 + 2;
+    bool has_left_child = left_child_index < size_;
+    bool has_right_child = right_child_index < size_;
+    int swap_index = index;
+
+    if (has_left_child && has_right_child) {
+      if (elements_[left_child_index].key_ > elements_[right_child_index].key_) {
+        swap_index = left_child_index;
+      } else { // greater or equal to right child
+        swap_index = right_child_index;
+      }
+    } else if (has_left_child) {
+      swap_index = left_child_index;
+    } else if (has_right_child) {
+      swap_index = right_child_index;
+    } else {
+      break;
+    }
+
+    if (elements_[swap_index].key_ > elements_[index].key_) {
+      Swap(swap_index, index);
+
+      index = swap_index;
+    } else {
+      break;
+    }
+  }
+}
+
+void PriorityQueue::Remove(int index) {
+  assert(index >=0 && index < size_);
+
+  Swap(index, size_ - 1);
+  --size_;
+
+  SiftDown(index);
+}
 
 }  // namespace jw

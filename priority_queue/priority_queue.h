@@ -30,7 +30,9 @@ class PriorityQueue {
   bool IsEmpty();
   // Returns the maximum key and value associated with it, removing it from the
   // queue
-  // PQElement* ExtractMax();
+  PQElement* ExtractMax();
+  // Remove the node with the given index
+  void Remove(int index);
 
  private:
   int size_ = 0;
@@ -41,6 +43,9 @@ class PriorityQueue {
   void SiftUp(int index);
   // Swaps 2 queue elements with the given indices
   void Swap(const int index1, const int index2);
+  // Propagates the given node index down the tree until the subtree's heap property
+  // is satisfied
+  void SiftDown(int index);
 };
 
 }  // namespace jw

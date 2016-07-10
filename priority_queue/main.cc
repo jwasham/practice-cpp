@@ -23,7 +23,25 @@ int main(int argc, char* argv[]) {
   assert(max->key_ == 9827);
   assert(max->value_ == "world");
 
-  queue.PrintDebug();
+  //queue.PrintDebug();
+
+  jw::PQElement* max_element = queue.ExtractMax();
+  assert(max_element->key_ == 9827);
+  assert(max_element->value_ == "world");
+  assert(queue.GetSize() == 4);
+
+  max_element = queue.ExtractMax();
+  assert(max_element->key_ == 1221);
+  assert(max_element->value_ == "things");
+  assert(queue.GetSize() == 3);
+
+  queue.Remove(2);
+  assert(queue.GetSize() == 2);
+  queue.Remove(0);
+  queue.Remove(0);
+  assert(queue.GetSize() == 0);
+
+  delete max_element;
 
   exit(EXIT_SUCCESS);
 }
