@@ -23,13 +23,14 @@ class PriorityQueue {
   // Outputs the contents of the queue
   void PrintDebug();
   // Returns the maximum key and value associated with it
-  PQElement* GetMax();
+  PQElement *GetMax();
   // Returns the number of items stored in the queue
   int GetSize();
   // Returns true if queue is empty
   bool IsEmpty();
-  // Returns the maximum key and value associated with it, removing it from the queue
-  //PQElement* ExtractMax();
+  // Returns the maximum key and value associated with it, removing it from the
+  // queue
+  // PQElement* ExtractMax();
 
  private:
   int size_ = 0;
