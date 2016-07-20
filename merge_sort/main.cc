@@ -2,8 +2,8 @@
 #include "merge_sort.h"
 #include "test_merge_sort.h"
 
-int main(int argc, char* argv[]) {
-  int num_count = 30;
+int main(int argc, char *argv[]) {
+  const int num_count = 30;
   int original[] = {325432, 989,   547510, 3,   -93,  189019, 5042,  123,
                     597,    42,    7506,   184, 184,  2409,   45,    824,
                     4,      -2650, 9,      662, 3928, -170,   45358, 395,
