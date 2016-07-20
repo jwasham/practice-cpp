@@ -1,7 +1,7 @@
 namespace jw {
 
 void merge(int numbers[], int low, int mid, int high) {
-  // temp array for holding sorted
+  // temp array for holding sorted items
   int b[high - low - 1];
   int i = low;
   int j = mid + 1;
