@@ -1,7 +1,7 @@
 #include <time.h>
 #include <iostream>
-#include <vector>
 #include <random>
+#include <vector>
 
 #ifndef PROJECT_EXPERIMENTS_H
 #define PROJECT_EXPERIMENTS_H
