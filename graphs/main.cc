@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
   dg->AddEdge(6, 5);
   dg->AddEdge(7, 5);
 
-  dg->PrintDebug();
+  dg->DFS();
 
   return 0;
 }

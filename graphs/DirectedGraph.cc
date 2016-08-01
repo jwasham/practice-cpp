@@ -11,7 +11,7 @@ void DirectedGraph::AddEdge(const int source, const int destination) {
   representation_->AddEdge(source, destination);
 }
 
-void DirectedGraph::DFS() { std::cout << "running dfs" << std::endl; }
+void DirectedGraph::DFS() { representation_->DFS(); }
 
 void DirectedGraph::PrintDebug() { representation_->PrintDebug(); }
 

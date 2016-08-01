@@ -49,11 +49,51 @@ void GraphRepresentationList::AddEdge(const int source, const int destination) {
   if (it == adjacent_vertices.end()) {
     adj_list_.at(source_index).push_back(destination);
   }
+
+  vertices_ = static_cast<int>(adj_list_.size());
+}
+
+void GraphRepresentationList::DFS() {
+  std::set<int> visited;
+  std::vector<int> components;
+
+  for (unsigned long i = 0; i < adj_list_.size(); ++i) {
+    if (visited.count(i) == 0) {
+      components.push_back(i);
+    }
+
+    std::stack<int> to_visit;
+
+    to_visit.push(i);
+
+    while (!to_visit.empty()) {
+      int vertex = to_visit.top();
+      to_visit.pop();
+
+      visited.insert(vertex);
+      std::cout << vertex << " ";
+
+      for (unsigned long n = 0; n < adj_list_[vertex].size(); n++) {
+        int neighbor = adj_list_[vertex].at(n);
+        if (visited.count(neighbor) == 0) {
+          to_visit.push(neighbor);
+        }
+      }
+      std::cout << " -> ";
+    }
+
+    std::cout << std::endl;
+  }
+
+  std::cout << "\nComponents: " << components.size() << std::endl;
+  for (auto it = components.begin(); it != components.end(); ++it) {
+    std::cout << *it << " ";
+  }
 }
 
 void GraphRepresentationList::PrintDebug() {
   std::cout << "Adjacency list:" << std::endl;
-  std::cout << "Vertices: " << adj_list_.size() - 1 << std::endl;
+  std::cout << "Vertices: " << vertices_ << std::endl;
 
   for (unsigned long i = 0; i < adj_list_.size(); ++i) {
     std::cout << "Vertex: " << i << ":";
@@ -65,13 +105,10 @@ void GraphRepresentationList::PrintDebug() {
 }
 
 void GraphRepresentationMatrix::AddEdge(const int source,
-                                        const int destination) {
-  std::cout << "down in matrix " << std::endl;
-}
+                                        const int destination) {}
 
-void GraphRepresentationMatrix::PrintDebug() {
-  std::cout << "Adjacency matrix:" << std::endl;
-  std::cout << "Vertices: " << vertices_ << std::endl;
-}
+void GraphRepresentationMatrix::DFS() {}
+
+void GraphRepresentationMatrix::PrintDebug() {}
 
 }  // namespace jw
