@@ -7,12 +7,14 @@ DirectedGraph::DirectedGraph(const std::string representation_type) {
       representation_type, GraphRepresentation::kGraphTypeDirected);
 }
 
-void AddEdge(const int source, const int destination) {
-  std::cout << "adding an edge" << std::endl;
+void DirectedGraph::AddEdge(const int source, const int destination) {
+  representation_->AddEdge(source, destination);
 }
 
-void DFS() { std::cout << "running dfs" << std::endl; }
+void DirectedGraph::DFS() { std::cout << "running dfs" << std::endl; }
 
-void PrintDebug() { std::cout << "print debugging" << std::endl; }
+void DirectedGraph::PrintDebug() {
+  std::cout << "print debugging" << std::endl;
+}
 
 }  // namespace jw

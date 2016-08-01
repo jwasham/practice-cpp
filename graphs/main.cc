@@ -13,5 +13,15 @@ int main(int argc, char* argv[]) {
 
   auto dg = new DirectedGraph(GraphRepresentation::kRepresentationTypeList);
 
+  dg->AddEdge(0, 1);
+  dg->AddEdge(0, 5);
+  dg->AddEdge(1, 2);
+  dg->AddEdge(2, 4);
+  dg->AddEdge(2, 6);
+  dg->AddEdge(3, 2);
+  dg->AddEdge(5, 8);
+  dg->AddEdge(6, 5);
+  dg->AddEdge(7, 5);
+
   return 0;
 }

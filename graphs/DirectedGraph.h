@@ -13,9 +13,9 @@ class DirectedGraph : public Graph {
   DirectedGraph(const DirectedGraph &) = delete;
   DirectedGraph &operator=(const DirectedGraph &) = delete;
 
-  void AddEdge(const int source, const int destination) {}
-  void DFS() {}
-  void PrintDebug() {}
+  void AddEdge(const int source, const int destination);
+  void DFS();
+  void PrintDebug();
 };
 
 }  // namespace jw

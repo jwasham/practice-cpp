@@ -22,11 +22,42 @@ std::unique_ptr<jw::GraphRepresentation> GraphRepresentation::GetRepresentation(
 }
 
 GraphRepresentation::GraphRepresentation(const std::string graph_type) {
+  vertices_ = {0};
+
   if (graph_type == kGraphTypeDirected) {
     type_ = kGraphTypeDirected;
   } else if (graph_type == kGraphTypeDirected) {
     type_ = kGraphTypeUndirected;
   }
+}
+
+void GraphRepresentationList::AddEdge(const int source, const int destination) {
+  unsigned long source_index = static_cast<unsigned long>(source);
+  unsigned long size_required = source_index * 2 + 1;
+
+  if (adj_list_.capacity() < size_required) {
+    adj_list_.resize(size_required);
+  }
+
+  auto adjacent_vertices = adj_list_.at(source_index);
+
+  if (adjacent_vertices.empty()) {
+    vertices_++;
+  }
+
+  // find it so we don't add edge twice
+  std::vector<int>::iterator it;
+  it = std::find(adjacent_vertices.begin(), adjacent_vertices.end(),
+                 destination);
+
+  if (it != adjacent_vertices.end()) {
+    adj_list_.at(source_index).push_back(destination);
+  }
+}
+
+void GraphRepresentationMatrix::AddEdge(const int source,
+                                        const int destination) {
+  std::cout << "down in matrix " << std::endl;
 }
 
 }  // namespace jw
