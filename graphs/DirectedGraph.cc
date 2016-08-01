@@ -13,6 +13,8 @@ void DirectedGraph::AddEdge(const int source, const int destination) {
 
 void DirectedGraph::DFS() { representation_->DFS(); }
 
+void DirectedGraph::BFS() { representation_->BFS(); }
+
 void DirectedGraph::PrintDebug() { representation_->PrintDebug(); }
 
 }  // namespace jw

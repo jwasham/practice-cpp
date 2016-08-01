@@ -24,6 +24,7 @@ int main(int argc, char* argv[]) {
   dg->AddEdge(7, 5);
 
   dg->DFS();
+//  dg->BFS();
 
   return 0;
 }

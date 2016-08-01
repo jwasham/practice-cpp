@@ -3,6 +3,8 @@
 #include <stack>
 #include <string>
 #include <vector>
+#include <queue>
+#include <cassert>
 
 #ifndef PROJECT_GRAPH_REPRESENTATION_H
 #define PROJECT_GRAPH_REPRESENTATION_H
@@ -27,6 +29,7 @@ class GraphRepresentation {
 
   virtual void AddEdge(const int source, const int destination) = 0;
   virtual void DFS() = 0;
+  virtual void BFS() = 0;
   virtual void PrintDebug() = 0;
 
   std::string type_;
@@ -39,6 +42,7 @@ class GraphRepresentationList : public GraphRepresentation {
       : GraphRepresentation(graph_type) {}
   void AddEdge(const int source, const int destination);
   void DFS();
+  void BFS();
   void PrintDebug();
 
   std::vector<std::vector<int>> adj_list_;
@@ -50,6 +54,7 @@ class GraphRepresentationMatrix : public GraphRepresentation {
       : GraphRepresentation(graph_type) {}
   void AddEdge(const int source, const int destination);
   void DFS();
+  void BFS();
   void PrintDebug();
 };
 

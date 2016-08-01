@@ -54,11 +54,16 @@ void GraphRepresentationList::AddEdge(const int source, const int destination) {
 }
 
 void GraphRepresentationList::DFS() {
-  std::set<int> visited;
+  const int NULL_PARENT = -1;
   std::vector<int> components;
+  int* parents = new int[vertices_]();
+  assert(parents);
+  std::fill_n(parents, vertices_, NULL_PARENT);
+
+  std::cout << "DFS: " << std::endl;
 
   for (unsigned long i = 0; i < adj_list_.size(); ++i) {
-    if (visited.count(i) == 0) {
+    if (parents[i] == NULL_PARENT) {
       components.push_back(i);
     }
 
@@ -70,8 +75,49 @@ void GraphRepresentationList::DFS() {
       int vertex = to_visit.top();
       to_visit.pop();
 
+      for (unsigned long n = 0; n < adj_list_[vertex].size(); n++) {
+        int neighbor = adj_list_[vertex].at(n);
+        if (parents[neighbor] == NULL_PARENT) {
+          parents[neighbor] = vertex;
+          to_visit.push(neighbor);
+        }
+      }
+    }
+  }
+
+  for (int i = 0; i < vertices_; ++i) {
+    std::cout << i << " : " << parents[i] << std::endl;
+  }
+
+  std::cout << "\nComponents: " << components.size() << std::endl;
+  for (auto it = components.begin(); it != components.end(); ++it) {
+    std::cout << *it << " ";
+  }
+
+  delete[] parents;
+}
+
+void GraphRepresentationList::BFS() {
+  std::set<int> visited;
+  std::vector<int> components;
+
+  std::cout << "BFS: " << std::endl;
+
+  for (unsigned long i = 0; i < adj_list_.size(); ++i) {
+    if (visited.count(i) == 0) {
+      components.push_back(i);
+    }
+
+    std::queue<int> to_visit;
+
+    to_visit.push(i);
+
+    while (!to_visit.empty()) {
+      int vertex = to_visit.front();
+      to_visit.pop();
+
       visited.insert(vertex);
-      std::cout << vertex << " ";
+      std::cout << vertex << "\n";
 
       for (unsigned long n = 0; n < adj_list_[vertex].size(); n++) {
         int neighbor = adj_list_[vertex].at(n);
@@ -108,6 +154,8 @@ void GraphRepresentationMatrix::AddEdge(const int source,
                                         const int destination) {}
 
 void GraphRepresentationMatrix::DFS() {}
+
+void GraphRepresentationMatrix::BFS() {}
 
 void GraphRepresentationMatrix::PrintDebug() {}
 
