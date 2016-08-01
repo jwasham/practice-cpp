@@ -24,6 +24,7 @@ class GraphRepresentation {
   GraphRepresentation &operator=(const GraphRepresentation &) = delete;
 
   virtual void AddEdge(const int source, const int destination) = 0;
+  virtual void PrintDebug() = 0;
 
   std::string type_;
   int vertices_;
@@ -34,6 +35,7 @@ class GraphRepresentationList : public GraphRepresentation {
   GraphRepresentationList(const std::string graph_type)
       : GraphRepresentation(graph_type) {}
   void AddEdge(const int source, const int destination);
+  void PrintDebug();
 
   std::vector<std::vector<int>> adj_list_;
 };
@@ -43,6 +45,7 @@ class GraphRepresentationMatrix : public GraphRepresentation {
   GraphRepresentationMatrix(const std::string graph_type)
       : GraphRepresentation(graph_type) {}
   void AddEdge(const int source, const int destination);
+  void PrintDebug();
 };
 
 }  // namespace jw

@@ -1,5 +1,5 @@
-#include "Graph.h"
 #include "DirectedGraph.h"
+#include "Graph.h"
 //#include "experiments.h"
 
 int main(int argc, char* argv[]) {
@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
   dg->AddEdge(5, 8);
   dg->AddEdge(6, 5);
   dg->AddEdge(7, 5);
+
+  dg->PrintDebug();
 
   return 0;
 }

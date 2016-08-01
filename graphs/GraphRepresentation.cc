@@ -33,31 +33,45 @@ GraphRepresentation::GraphRepresentation(const std::string graph_type) {
 
 void GraphRepresentationList::AddEdge(const int source, const int destination) {
   unsigned long source_index = static_cast<unsigned long>(source);
-  unsigned long size_required = source_index * 2 + 1;
+  int size_required = std::max(source, destination) + 1;
 
-  if (adj_list_.capacity() < size_required) {
-    adj_list_.resize(size_required);
+  while (adj_list_.size() < size_required) {
+    adj_list_.push_back(std::vector<int>());
   }
 
   auto adjacent_vertices = adj_list_.at(source_index);
-
-  if (adjacent_vertices.empty()) {
-    vertices_++;
-  }
 
   // find it so we don't add edge twice
   std::vector<int>::iterator it;
   it = std::find(adjacent_vertices.begin(), adjacent_vertices.end(),
                  destination);
 
-  if (it != adjacent_vertices.end()) {
+  if (it == adjacent_vertices.end()) {
     adj_list_.at(source_index).push_back(destination);
+  }
+}
+
+void GraphRepresentationList::PrintDebug() {
+  std::cout << "Adjacency list:" << std::endl;
+  std::cout << "Vertices: " << adj_list_.size() - 1 << std::endl;
+
+  for (unsigned long i = 0; i < adj_list_.size(); ++i) {
+    std::cout << "Vertex: " << i << ":";
+    for (unsigned long j = 0; j < adj_list_[i].size(); ++j) {
+      std::cout << " " << adj_list_.at(i).at(j);
+    }
+    std::cout << std::endl;
   }
 }
 
 void GraphRepresentationMatrix::AddEdge(const int source,
                                         const int destination) {
   std::cout << "down in matrix " << std::endl;
+}
+
+void GraphRepresentationMatrix::PrintDebug() {
+  std::cout << "Adjacency matrix:" << std::endl;
+  std::cout << "Vertices: " << vertices_ << std::endl;
 }
 
 }  // namespace jw
