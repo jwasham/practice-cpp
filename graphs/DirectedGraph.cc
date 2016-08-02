@@ -19,4 +19,8 @@ bool DirectedGraph::ContainsCycle() { return representation_->ContainsCycle(); }
 
 void DirectedGraph::PrintDebug() { representation_->PrintDebug(); }
 
+const int DirectedGraph::GetVertexCount() {
+  return representation_->vertices_;
+}
+
 }  // namespace jw

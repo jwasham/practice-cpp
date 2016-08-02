@@ -22,13 +22,15 @@ int main(int argc, char* argv[]) {
   dg->AddEdge(5, 8);
   dg->AddEdge(6, 5);
   dg->AddEdge(7, 5);
-//  dg->AddEdge(8, 6);
+//  dg->AddEdge(8, 6); // uncomment to create cycle
 
   dg->DFS();
   dg->BFS();
   dg->PrintDebug();
 
   printf("Contains cycle: %d\n", dg->ContainsCycle());
+
+  const int vertices = dg->GetVertexCount();
 
   return 0;
 }

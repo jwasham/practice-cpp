@@ -18,6 +18,7 @@ class DirectedGraph : public Graph {
   void BFS();
   bool ContainsCycle();
   void PrintDebug();
+  const int GetVertexCount();
 };
 
 }  // namespace jw
