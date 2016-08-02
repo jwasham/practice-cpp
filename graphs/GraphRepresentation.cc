@@ -54,13 +54,14 @@ void GraphRepresentationList::AddEdge(const int source, const int destination) {
 }
 
 void GraphRepresentationList::DFS() {
-  const int NULL_PARENT = -1;
   std::vector<int> components;
+
+  const int NULL_PARENT = -1;
   int* parents = new int[vertices_]();
   assert(parents);
   std::fill_n(parents, vertices_, NULL_PARENT);
 
-  std::cout << "DFS: " << std::endl;
+  std::cout << "\n------------\nDFS: " << std::endl;
 
   for (unsigned long i = 0; i < adj_list_.size(); ++i) {
     if (parents[i] == NULL_PARENT) {
@@ -75,6 +76,8 @@ void GraphRepresentationList::DFS() {
       int vertex = to_visit.top();
       to_visit.pop();
 
+      std::cout << vertex << " ";
+
       for (unsigned long n = 0; n < adj_list_[vertex].size(); n++) {
         int neighbor = adj_list_[vertex].at(n);
         if (parents[neighbor] == NULL_PARENT) {
@@ -84,6 +87,8 @@ void GraphRepresentationList::DFS() {
       }
     }
   }
+
+  std::cout << "\n\nParents:\n";
 
   for (int i = 0; i < vertices_; ++i) {
     std::cout << i << " : " << parents[i] << std::endl;
@@ -98,13 +103,17 @@ void GraphRepresentationList::DFS() {
 }
 
 void GraphRepresentationList::BFS() {
-  std::set<int> visited;
   std::vector<int> components;
 
-  std::cout << "BFS: " << std::endl;
+  const int NULL_PARENT = -1;
+  int* parents = new int[vertices_]();
+  assert(parents);
+  std::fill_n(parents, vertices_, NULL_PARENT);
+
+  std::cout << "\n------------\nBFS: " << std::endl;
 
   for (unsigned long i = 0; i < adj_list_.size(); ++i) {
-    if (visited.count(i) == 0) {
+    if (parents[i] == NULL_PARENT) {
       components.push_back(i);
     }
 
@@ -116,19 +125,22 @@ void GraphRepresentationList::BFS() {
       int vertex = to_visit.front();
       to_visit.pop();
 
-      visited.insert(vertex);
-      std::cout << vertex << "\n";
+      std::cout << vertex << " ";
 
       for (unsigned long n = 0; n < adj_list_[vertex].size(); n++) {
         int neighbor = adj_list_[vertex].at(n);
-        if (visited.count(neighbor) == 0) {
+        if (parents[neighbor] == NULL_PARENT) {
+          parents[neighbor] = vertex;
           to_visit.push(neighbor);
         }
       }
-      std::cout << " -> ";
     }
+  }
 
-    std::cout << std::endl;
+  std::cout << "\n\nParents:\n";
+
+  for (int i = 0; i < vertices_; ++i) {
+    std::cout << i << " : " << parents[i] << std::endl;
   }
 
   std::cout << "\nComponents: " << components.size() << std::endl;
