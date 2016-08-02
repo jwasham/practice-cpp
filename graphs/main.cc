@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
   dg->AddEdge(5, 8);
   dg->AddEdge(6, 5);
   dg->AddEdge(7, 5);
-//  dg->AddEdge(8, 6); // uncomment to create cycle
+  //  dg->AddEdge(8, 6); // uncomment to create cycle
 
   dg->DFS();
   dg->BFS();

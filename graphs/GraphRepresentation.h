@@ -1,10 +1,10 @@
+#include <cassert>
 #include <iostream>
+#include <queue>
 #include <set>
 #include <stack>
 #include <string>
 #include <vector>
-#include <queue>
-#include <cassert>
 
 #ifndef PROJECT_GRAPH_REPRESENTATION_H
 #define PROJECT_GRAPH_REPRESENTATION_H
@@ -50,7 +50,7 @@ class GraphRepresentationList : public GraphRepresentation {
   std::vector<std::vector<int>> adj_list_;
 };
 
-//class GraphRepresentationMatrix : public GraphRepresentation {
+// class GraphRepresentationMatrix : public GraphRepresentation {
 // public:
 //  GraphRepresentationMatrix(const std::string graph_type)
 //      : GraphRepresentation(graph_type) {}
