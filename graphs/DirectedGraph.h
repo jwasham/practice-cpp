@@ -16,6 +16,7 @@ class DirectedGraph : public Graph {
   void AddEdge(const int source, const int destination);
   void DFS();
   void BFS();
+  bool ContainsCycle();
   void PrintDebug();
 };
 

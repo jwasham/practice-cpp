@@ -1,4 +1,5 @@
 #include "GraphRepresentation.h"
+#include <curses.h>
 
 namespace jw {
 
@@ -12,9 +13,9 @@ std::unique_ptr<jw::GraphRepresentation> GraphRepresentation::GetRepresentation(
   if (representation_type == kRepresentationTypeList) {
     return std::unique_ptr<GraphRepresentation>{
         new GraphRepresentationList(graph_type)};
-  } else if (representation_type == kRepresentationTypeMatrix) {
-    return std::unique_ptr<GraphRepresentation>{
-        new GraphRepresentationMatrix(graph_type)};
+    //  } else if (representation_type == kRepresentationTypeMatrix) {
+    //    return std::unique_ptr<GraphRepresentation>{
+    //        new GraphRepresentationMatrix(graph_type)};
   } else {
     std::cerr << "Graph Representation type not supported.";
     exit(EXIT_FAILURE);
@@ -32,6 +33,8 @@ GraphRepresentation::GraphRepresentation(const std::string graph_type) {
 }
 
 void GraphRepresentationList::AddEdge(const int source, const int destination) {
+  // todo when type_ undirected graph, make 2 edges
+
   unsigned long source_index = static_cast<unsigned long>(source);
   int size_required = std::max(source, destination) + 1;
 
@@ -99,6 +102,8 @@ void GraphRepresentationList::DFS() {
     std::cout << *it << " ";
   }
 
+  putchar('\n');
+
   delete[] parents;
 }
 
@@ -147,6 +152,10 @@ void GraphRepresentationList::BFS() {
   for (auto it = components.begin(); it != components.end(); ++it) {
     std::cout << *it << " ";
   }
+
+  putchar('\n');
+
+  delete[] parents;
 }
 
 void GraphRepresentationList::PrintDebug() {
@@ -154,7 +163,7 @@ void GraphRepresentationList::PrintDebug() {
   std::cout << "Vertices: " << vertices_ << std::endl;
 
   for (unsigned long i = 0; i < adj_list_.size(); ++i) {
-    std::cout << "Vertex: " << i << ":";
+    std::cout << i << ":";
     for (unsigned long j = 0; j < adj_list_[i].size(); ++j) {
       std::cout << " " << adj_list_.at(i).at(j);
     }
@@ -162,13 +171,71 @@ void GraphRepresentationList::PrintDebug() {
   }
 }
 
-void GraphRepresentationMatrix::AddEdge(const int source,
-                                        const int destination) {}
+bool GraphRepresentationList::ContainsCycle() {
+  bool contains_cycle = FALSE;
+  const int STATUS_NEW = 0;
+  const int STATUS_STARTED = 1;
+  const int STATUS_FINISHED = 2;
 
-void GraphRepresentationMatrix::DFS() {}
+  for (unsigned long i = 0; i < adj_list_.size(); ++i) {
+    int* nodes = new int[vertices_]();
+    assert(nodes);
+    std::fill_n(nodes, vertices_, STATUS_NEW);
+    std::stack<int> to_visit;
 
-void GraphRepresentationMatrix::BFS() {}
+    to_visit.push(i);
 
-void GraphRepresentationMatrix::PrintDebug() {}
+    while (!(to_visit.empty() || contains_cycle)) {
+      int vertex = to_visit.top();
+      to_visit.pop();
+
+      if (nodes[vertex] == STATUS_STARTED) {
+        nodes[vertex] = STATUS_FINISHED;
+        // std::cout << vertex << " finished" << std::endl;
+        continue;
+      }
+
+      // std::cout << vertex << " started" << std::endl;
+      nodes[vertex] = STATUS_STARTED;
+
+      // push bach onto stack so we can tell when vertex is finished
+      to_visit.push(vertex);
+
+      for (unsigned long n = 0; n < adj_list_[vertex].size(); n++) {
+        int neighbor = adj_list_[vertex].at(n);
+
+        if (nodes[neighbor] == STATUS_NEW) {
+          to_visit.push(neighbor);
+        } else if (nodes[neighbor] == STATUS_STARTED) {
+          contains_cycle = TRUE;
+          break;
+        } else if (nodes[neighbor] == STATUS_FINISHED) {
+          // skip, already seen
+        }
+      }
+    }
+
+    delete[] nodes;
+  }
+
+  return contains_cycle;
+}
+
+// void GraphRepresentationMatrix::AddEdge(const int source,
+//                                        const int destination) {
+//  // todo when type_ undirected graph, make 2 edges
+//}
+//
+// void GraphRepresentationMatrix::DFS() {
+//  // todo make this
+//}
+//
+// void GraphRepresentationMatrix::BFS() {
+//  // todo make this
+//}
+//
+// void GraphRepresentationMatrix::PrintDebug() {
+//  // todo make this
+//}
 
 }  // namespace jw

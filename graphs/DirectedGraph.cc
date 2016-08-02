@@ -15,6 +15,8 @@ void DirectedGraph::DFS() { representation_->DFS(); }
 
 void DirectedGraph::BFS() { representation_->BFS(); }
 
+bool DirectedGraph::ContainsCycle() { return representation_->ContainsCycle(); }
+
 void DirectedGraph::PrintDebug() { representation_->PrintDebug(); }
 
 }  // namespace jw
