@@ -49,7 +49,7 @@ BSTNode* GetMinNode(BSTNode* node) {
     return node;
   }
 
-  return GetMinNode(node);
+  return GetMinNode(node->left);
 }
 
 int GetMin(BSTNode* node) {
