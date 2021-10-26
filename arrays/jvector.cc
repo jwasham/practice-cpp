@@ -1,5 +1,5 @@
 #include "jvector.h"
-#include <iostream>
+#include <bits/stdc++.h>
 
 namespace jw {
 
