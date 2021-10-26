@@ -5,7 +5,7 @@ namespace jw {
 
 JVector::JVector(int capacity) : size_(0) {
   if (capacity < 1) {
-    std::cout << "Cannot make vector of that size" << std::endl;
+    std::cout << "Cannot make vector of that size" << "\n";
     exit(EXIT_FAILURE);
   }
 
@@ -124,18 +124,14 @@ int JVector::Pop() {
 
 void JVector::Insert(int index, int value) {
   if (index < 0 or index >= size_) {
-    std::cout << "Index out of bounds." << std::endl;
+    std::cout << "Index out of bounds." << "\n";
     exit(EXIT_FAILURE);
   }
 
   ResizeForSize(size_ + 1);
-
-  // shift items to the right
   for (int i = size_; i > index; --i) {
     data_[i] = data_[i - 1];
   }
-
-  // insert item
   data_[index] = value;
 
   ++size_;
@@ -159,7 +155,7 @@ void JVector::Delete(int index) {
 }
 
 void JVector::Remove(int value) {
-  for (int i = 0; i < size_; ++i) {
+  for (int i = 0; i < size_; i++) {
     if (data_[i] == value) {
       Delete(i);
       --i;  // since items will shift, recheck this index
